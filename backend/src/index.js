@@ -1,31 +1,19 @@
+import { app } from './app.js';
+import dotenv from 'dotenv';
+import connectToDB from './db/conn.js';
 
-import { app } from './app.js'
+// Load environment variables
+dotenv.config();  // will read .env from backend root
 
-// initialized secret variables file .env
-import dotenv from "dotenv"
-
-// .env variables for localhost
-// dotenv.config({ path: './.env.local' });
-
-// .env variables for production
-dotenv.config({ path: '.env' });
-
-// getting PORT no from secret .env file
 const PORT = process.env.PORT || 5000;
 
-// connection established
-import connectToDB from "./db/conn.js";
-
-connectToDB().
-    then(() => {
-        app.on("error", () => {
-            console.log("Error on app", error)
-            throw error;
-        })
-        app.listen(PORT, () => {
-            console.log(`Server is running at PORT ${PORT}`)
-        })
-    })
-    .catch((error) => {
-        console.log(`Mongodb connection failed ${error}`)
-    })
+// Connect to MongoDB
+connectToDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on PORT ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('MongoDB connection failed:', error);
+  });
