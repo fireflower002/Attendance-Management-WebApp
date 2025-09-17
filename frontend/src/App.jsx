@@ -16,22 +16,27 @@ function App() {
   return (
     <>
       <Routes>
-        {/* student, teacher login page */}
+        {/* Authentication page - handles both login and registration */}
         <Route path="/" element={<Authentication />} />
-        {/* Teacher access page */}
+        <Route path="/login" element={<Authentication />} />
+        <Route path="/register" element={<Authentication />} />
+        
+        {/* Teacher access pages */}
         <Route path="/home" element={<TeacherHome />} />
         <Route path="/history" element={<HistoryAttendence />} />
         <Route path="/teacher" element={<TeacherPage />} />
-        {/* Student Access Page */}
+        
+        {/* Student access page */}
         <Route path="/student" element={<StudentPage />} />
-        {/* HOD access page */}
+        
+        {/* HOD access pages */}
         <Route path="/hod" element={<HodProfilePage />} />
         <Route path="/data" element={<HodPage />} />
         <Route path="/manage-teacher" element={<ManageTeacher />} />
         <Route path="/manage-student" element={<ManageStudent />} />
 
-        {/* Error Page show when not exist page */}
-        {/* <Route path="/*" element={<Authentication />} /> */}
+        {/* Error Page - show authentication for non-existing routes */}
+        <Route path="/*" element={<Authentication />} />
       </Routes>
     </>
   );
